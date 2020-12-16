@@ -65,7 +65,7 @@ export const constantRoutes = [
       {
         path: 'table',
         name: 'caselist',
-        component: () => import('@/views/list/index'),
+        component: () => import('@/views/case/index'),
         meta: { title: '用例列表', icon: 'table' }
       },
       {
@@ -73,6 +73,13 @@ export const constantRoutes = [
         name: 'Tree',
         component: () => import('@/views/tree/index'),
         meta: { title: 'Tree', icon: 'tree' }
+      }
+      ,
+      {
+        path: 'table',
+        name: 'table',
+        component: () => import('@/views/case/group'),
+        meta: { title: '集合', icon: 'table' }
       }
     ]
   },
@@ -165,7 +172,7 @@ export const constantRoutes = [
 ]
 
 const createRouter = () => new Router({
-  // mode: 'history', // require service support
+  mode: 'history', // require service support
   scrollBehavior: () => ({ y: 0 }),
   routes: constantRoutes
 })

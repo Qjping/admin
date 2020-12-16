@@ -7,3 +7,11 @@ export function getList(params) {
     params
   })
 }
+
+export function getGroup(params) {
+  return request({
+    url: '/case/group',
+    method: 'get',
+    params
+  })
+}

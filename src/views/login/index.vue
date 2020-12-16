@@ -113,11 +113,14 @@ export default {
         if (valid) {
           this.loading = true
           this.$store.dispatch('user/login', this.loginForm).then(response => {
-            const userData = response.data
+            // console.log(response)
+            // const userData = response.data
             // setToken(userData.access_token)
+            // console.log(userData)
             this.$router.push({ path: this.redirect || '/' })
             this.loading = false
-          }).catch(() => {
+          }).catch((e) => {
+            console.log(e)
             this.loading = false
           })
         } else {
