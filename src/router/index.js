@@ -76,10 +76,10 @@ export const constantRoutes = [
       }
       ,
       {
-        path: 'table',
-        name: 'table',
+        path: 'group',
+        name: 'group',
         component: () => import('@/views/case/group'),
-        meta: { title: '集合', icon: 'table' }
+        meta: { title: '用例集合', icon: 'table' }
       }
     ]
   },
