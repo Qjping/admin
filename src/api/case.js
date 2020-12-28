@@ -10,8 +10,18 @@ export function getList(params) {
 
 export function getGroup(params) {
   return request({
-    url: '/case/group',
+    url: '/case-group/index',
     method: 'get',
     params
   })
+}
+
+  export function excuteGroup(groupId) {
+    return request({
+      url: '/case-group/excute',
+      method: 'post',
+      data: {
+        groupId
+      }
+    })
 }
