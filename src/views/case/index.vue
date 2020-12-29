@@ -40,7 +40,14 @@
         </template>
       </el-table-column>
     </el-table>
+ 
+ <div class="pagination-container">
+      <el-pagination background @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="listQuery.page"
+        :page-sizes="[5,10,30,50]" :page-size="listQuery.limit" layout="total, sizes, prev, pager, next, jumper" :total="total">
+      </el-pagination>
+    </div>
   </div>
+  
 </template>
 
 <script>
@@ -59,8 +66,15 @@ export default {
   },
   data() {
     return {
+      total: 100,
       list: null,
-      listLoading: true
+      listLoading: true,
+      listQuery: {
+        page: 1,
+        limit: 5,
+        key_word: '',
+        product_id: ''
+      },
     }
   },
   created() {
@@ -69,11 +83,28 @@ export default {
   methods: {
     fetchData() {
       this.listLoading = true
-      getList().then(response => {
+      getList(this.listQuery).then(response => {
         this.list = response.data
         this.listLoading = false
+      })  
+    },
+    getList() {
+      this.listLoading = true
+      getList(this.listQuery).then(response => {
+        this.list = response.data
+        this.total = response.data.total
+        this.listLoading = false
       })
-    }
-  }
+    },
+    handleSizeChange(val) {
+      this.listQuery.limit = val
+      this.getList()
+    },
+    handleCurrentChange(val) {
+      this.listQuery.page = val
+      this.getList()
+    },
+  },
+  
 }
 </script>

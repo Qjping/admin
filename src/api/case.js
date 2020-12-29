@@ -1,10 +1,10 @@
 import request from '@/utils/request'
 
-export function getList(params) {
+export function getList(query) {
   return request({
     url: '/case/list',
     method: 'get',
-    params
+    params: query
   })
 }
 
