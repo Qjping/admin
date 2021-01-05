@@ -66,33 +66,29 @@ export default {
   },
   data() {
     return {
-      total: 100,
+      total: 0,
       list: null,
       listLoading: true,
       listQuery: {
         page: 1,
         limit: 5,
+        group_id:'',
         key_word: '',
         product_id: ''
       },
     }
   },
   created() {
-    this.fetchData()
+    this.getList()
   },
   methods: {
-    fetchData() {
-      this.listLoading = true
-      getList(this.listQuery).then(response => {
-        this.list = response.data
-        this.listLoading = false
-      })  
-    },
+ 
     getList() {
       this.listLoading = true
       getList(this.listQuery).then(response => {
-        this.list = response.data
-        this.total = response.data.total
+        this.list = response.data.list
+        console.log(this.list)
+        this.total = response.data.list.total
         this.listLoading = false
       })
     },

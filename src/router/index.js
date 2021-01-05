@@ -80,6 +80,12 @@ export const constantRoutes = [
         name: 'group',
         component: () => import('@/views/case/group'),
         meta: { title: '用例集合', icon: 'table' }
+      },
+      {
+        path: 'case_detail',
+        name: 'case_detail',
+        component: () => import('@/views/case/case_detail'),
+        meta: { title: '用例详情', icon: 'table' }
       }
     ]
   },

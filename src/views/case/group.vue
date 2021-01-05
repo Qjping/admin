@@ -51,7 +51,7 @@ import { getGroup, excuteGroup} from '@/api/case'
       }
     },  
     created()  {
-      this.fetchData()
+      this.getGroup()
   },
     methods: {
       handleEdit(index, row) {
@@ -62,21 +62,21 @@ import { getGroup, excuteGroup} from '@/api/case'
         console.log(index, row);
       },
       handleRun(index, row) {
-        
         console.log(index, row);
         excuteGroup(row.id)
 
       },
-      
-      fetchData() {
-      this.listLoading = true
-      getGroup().then(response => {
-        this.list = response.data
+      getGroup(){
+        getGroup().then(response => {
+        this.list = response.data.list
         console.log(list)
         this.listLoading = false
       })
+
+      }
+    
+ 
     }
-  }
   }
  
 </script>
