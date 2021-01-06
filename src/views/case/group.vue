@@ -1,5 +1,16 @@
 <template>
-  <el-table
+<div class="app-container">
+    <el-input v-model="filterText" placeholder="Filter keyword" style="margin-bottom:30px;" />
+
+    <el-tree
+      ref="tree2"
+      :data="data2"
+      :props="defaultProps"
+      :filter-node-method="filterNode"
+      class="filter-tree"
+      default-expand-all
+    />
+     <el-table
     :data="list.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase()))"
     style="width: 100%">
     <el-table-column
@@ -41,6 +52,10 @@
       </template>
     </el-table-column>
   </el-table>
+
+  </div>
+
+ 
 </template>
 <script>
 import { getGroup, excuteGroup} from '@/api/case'

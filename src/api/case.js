@@ -8,11 +8,18 @@ export function getList(query) {
   })
 }
 
+export function getDetail(id) {
+  return request({
+    url: '/case/detail',
+    method: 'get',
+    params: {id}
+  })
+}
+
 export function getGroup(params) {
   return request({
     url: '/case-group/index',
     method: 'get',
-    params
   })
 }
 
@@ -25,3 +32,4 @@ export function getGroup(params) {
       }
     })
 }
+

@@ -13,7 +13,7 @@
           {{ scope.row.id }}
         </template>
       </el-table-column>
-      <el-table-column label="URL">
+      <el-table-column label="URL" width="330" align="center">
         <template slot-scope="scope">
           {{ scope.row.url }}
         </template>
@@ -38,8 +38,26 @@
           <i class="el-icon-time" />
           <span>{{ scope.row.display_time }}</span>
         </template>
+        <template slot-scope="scope">
+            <router-link :to="'from'+scope.row.id+'/edit'">
+                <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">Edit</el-button>
+            </router-link>
+        <el-button
+          size="mini"
+          type="danger"
+          @click="handleDelete(scope.$index, scope.row)">Delete</el-button>
+           <el-button
+          size="mini"
+          type="danger"
+          @click="handleRun(scope.$index, scope.row)">run</el-button>
+          <router-link :to="'/case/from/'+scope.row.id+'/edit'">
+          <!-- v-if="$permissions.hasPermissions('SHOP_PRODUCT_UPDATE') || $permissions.hasPermissions('SHOP_PRODUCT_SPU_UPDATE')" -->
+            <el-button type="primary" size="small" icon="el-icon-edit" >详情</el-button>
+          </router-link>
+      </template>
       </el-table-column>
     </el-table>
+    
  
  <div class="pagination-container">
       <el-pagination background @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="listQuery.page"
@@ -100,6 +118,20 @@ export default {
       this.listQuery.page = val
       this.getList()
     },
+    handleEdit(index, row) {
+
+
+        console.log(index, row);
+      },
+      handleDelete(index, row) {
+        console.log(index, row);
+      },
+      handleRun(index, row) {
+        console.log(index, row);
+        excuteGroup(row.id)
+
+      }
+    
   },
   
 }

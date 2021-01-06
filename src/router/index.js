@@ -56,9 +56,9 @@ export const constantRoutes = [
   },
 
   {
-    path: '/example',
+    path: '/case',
     component: Layout,
-    redirect: '/example/table',
+    redirect: '/case/table',
     name: 'case',
     meta: { title: '用例管理', icon: 'el-icon-s-help' },
     children: [
@@ -82,10 +82,10 @@ export const constantRoutes = [
         meta: { title: '用例集合', icon: 'table' }
       },
       {
-        path: 'case_detail',
-        name: 'case_detail',
-        component: () => import('@/views/case/case_detail'),
-        meta: { title: '用例详情', icon: 'table' }
+        path: 'from/:id/edit',
+        hidden: true,
+        component: () => import('@/views/case/from'),
+        // meta: { title: '用例详情', icon: 'table' }
       }
     ]
   },
