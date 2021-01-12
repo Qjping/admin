@@ -82,7 +82,13 @@ export const constantRoutes = [
         meta: { title: '用例集合', icon: 'table' }
       },
       {
-        path: 'from/:id/edit',
+        path: ':id/edit',
+        hidden: true,
+        component: () => import('@/views/case/from'),
+        // meta: { title: '用例详情', icon: 'table' }
+      },
+      {
+        path: 'create',
         hidden: true,
         component: () => import('@/views/case/from'),
         // meta: { title: '用例详情', icon: 'table' }

@@ -1,5 +1,8 @@
 <template>
   <div class="app-container">
+        <el-button icon='el-icon-search' size="small" type="primary" @click="getList()">搜索</el-button>
+         
+        <el-button icon='el-icon-plus' size="small" type="primary" @click.prevent.stop="CaseNew" >新增</el-button>
     <el-table
       v-loading="listLoading"
       :data="list"
@@ -50,11 +53,12 @@
           size="mini"
           type="danger"
           @click="handleRun(scope.$index, scope.row)">run</el-button>
-          <router-link :to="'/case/from/'+scope.row.id+'/edit'">
+          <router-link :to="'/case/edit/'+scope.row.id+'/edit'">
           <!-- v-if="$permissions.hasPermissions('SHOP_PRODUCT_UPDATE') || $permissions.hasPermissions('SHOP_PRODUCT_SPU_UPDATE')" -->
             <el-button type="primary" size="small" icon="el-icon-edit" >详情</el-button>
           </router-link>
-      </template>
+           
+       </template>
       </el-table-column>
     </el-table>
     
@@ -130,7 +134,15 @@ export default {
         console.log(index, row);
         excuteGroup(row.id)
 
-      }
+      },
+      CaseNew() {
+      this.$router.push({
+        path: 'create',
+        query: {
+          enterprise_id: 1
+        }
+      })
+    }
     
   },
   

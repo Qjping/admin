@@ -31,5 +31,14 @@ export function getGroup(params) {
         groupId
       }
     })
-}
+  }
+
+  export function save(from){
+    return request({
+      url:  '/save',
+      method: 'post',
+      data: from
+    })
+  }
+
 

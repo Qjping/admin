@@ -1,99 +1,70 @@
+
 <template>
-  <div class="app-container">
-    <el-form ref="form" :model="form" label-width="80px">
-  <el-form-item label="活动名称">
+  <div >
+    
+    <el-radio-group v-model="labelPosition" size="small">
+  <el-radio-button label="left">左对齐</el-radio-button>
+  <el-radio-button label="right">右对齐</el-radio-button>
+  <el-radio-button label="top">顶部对齐</el-radio-button>
+</el-radio-group>
+<div style="margin: 20px;"></div>
+<el-form :label-position="labelPosition" label-width="80px" :model="form">
+  <el-form-item label="名称">
     <el-input v-model="form.name"></el-input>
   </el-form-item>
-  <el-form-item label="活动区域">
-    <el-select v-model="form.region" placeholder="请选择活动区域">
-      <el-option label="区域一" value="shanghai"></el-option>
-      <el-option label="区域二" value="beijing"></el-option>
-    </el-select>
+  <el-form-item label="METHOD">
+    <el-input v-model="form.method"></el-input>
   </el-form-item>
-  <el-form-item label="活动时间">
-    <el-col :span="11">
-      <el-date-picker type="date" placeholder="选择日期" v-model="form.date1" style="width: 100%;"></el-date-picker>
-    </el-col>
-    <el-col class="line" :span="2">-</el-col>
-    <el-col :span="11">
-      <el-time-picker placeholder="选择时间" v-model="form.date2" style="width: 100%;"></el-time-picker>
-    </el-col>
+  <el-form-item label="URL">
+    <el-input v-model="form.url"></el-input>
   </el-form-item>
-  <el-form-item label="即时配送">
-    <el-switch v-model="form.delivery"></el-switch>
-  </el-form-item>
-  <el-form-item label="活动性质">
-    <el-checkbox-group v-model="form.type">
-      <el-checkbox label="美食/餐厅线上活动" name="type"></el-checkbox>
-      <el-checkbox label="地推活动" name="type"></el-checkbox>
-      <el-checkbox label="线下主题活动" name="type"></el-checkbox>
-      <el-checkbox label="单纯品牌曝光" name="type"></el-checkbox>
-    </el-checkbox-group>
-  </el-form-item>
-  <el-form-item label="特殊资源">
-    <el-radio-group v-model="form.resource">
-      <el-radio label="线上品牌商赞助"></el-radio>
-      <el-radio label="线下场地免费"></el-radio>
-    </el-radio-group>
-  </el-form-item>
-  <el-form-item label="活动形式">
-    <el-input type="textarea" v-model="form.desc"></el-input>
-  </el-form-item>
-  <el-form-item>
-    <el-button type="primary" @click="onSubmit">立即创建</el-button>
-    <el-button>取消</el-button>
-  </el-form-item>
+     <el-button type="primary" :loading="loading" v-if="create" @click="handleCreateCase">创建</el-button>
+    <el-button type="primary" :loading="loading" v-if="edit" @click.native.prevent="handleUpdateGood">更新</el-button>
 </el-form>
-    <el-input v-model="filterText" placeholder="Filter keyword" style="margin-bottom:30px;" />
 
-    <el-tree
-      ref="tree2"
-      :data="data2"
-      :props="defaultProps"
-      :filter-node-method="filterNode"
-      class="filter-tree"
-      default-expand-all
-    />
-
+     
   </div>
-
-   
 </template>
-<script>
 
-import { getDetail} from '@/api/case'
+<script>
+import { getDetail, excuteGroup, save} from '@/api/case'
+import { validateEmptyString } from '@/utils/validate'
   export default {
     data() {
       return {
-       id:"",
-        form: {
+        form:{
           name: '',
-          region: '',
-          date1: '',
-          date2: '',
-          delivery: false,
-          type: [],
-          resource: '',
-          desc: ''
+          url: '',
+          method: '',
+          data:'',
+          header:'',
+          tag:'',
+          desction:'',
         }
-      }
+      };
     },
-    created() {
-      const id = this.$route.params && this.$route.params.id
-
-      this.getDetail(id)
-    },
-    methods: {
-      onSubmit() {
-        console.log('submit!');
-      },
-      getDetail(id){
-        getDetail(id).then(response => {
-        this.list = response.data.list
-        console.log(list)
-        this.listLoading = false
+   created() {
+    const id = this.$route.params && this.$route.params.id
+    console.log(id)
+    // this.fetchData(id)
+    if (id) {
+      this.fetchData(id)
+      this.edit = true
+    } else {
+      this.create = true
+    }
+  
+  },
+  methods: {
+    fetchData(id){
+      getDetail(id).then(response=>{
+        this.form = response.data
       })
-      
+
+    },
+    handleCreateCase(){
+       this.loading = true
+      save([this.form])
     }
   }
   }
