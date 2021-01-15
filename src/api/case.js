@@ -23,13 +23,12 @@ export function getGroup(params) {
   })
 }
 
-  export function excuteGroup(groupId) {
+  export function excuteGroup(data) {
     return request({
       url: '/case-group/excute',
       method: 'post',
-      data: {
-        groupId
-      }
+      data
+
     })
   }
 
@@ -38,6 +37,16 @@ export function getGroup(params) {
       url:  '/save',
       method: 'post',
       data: from
+    })
+  }
+
+  export function deleteCase(caseId){
+    return request({
+      url:  '/case/delete',
+      method: 'post',
+      data: {
+        case_id: caseId
+      }
     })
   }
 

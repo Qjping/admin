@@ -42,14 +42,15 @@
           <span>{{ scope.row.display_time }}</span>
         </template>
         <template slot-scope="scope">
-            <router-link :to="'from'+scope.row.id+'/edit'">
+            <router-link :to="'/case/edit/'+scope.row.id">
                 <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">Edit</el-button>
             </router-link>
         <el-button
           size="mini"
           type="danger"
           @click="handleDelete(scope.$index, scope.row)">Delete</el-button>
-           <el-button
+
+          <el-button
           size="mini"
           type="danger"
           @click="handleRun(scope.$index, scope.row)">run</el-button>
@@ -73,7 +74,7 @@
 </template>
 
 <script>
-import { getList } from '@/api/case'
+import { getList,deleteCase } from '@/api/case'
 
 export default {
   filters: {
@@ -88,7 +89,8 @@ export default {
   },
   data() {
     return {
-      total: 0,
+      page:'',
+      total: '',
       list: null,
       listLoading: true,
       listQuery: {
@@ -110,7 +112,7 @@ export default {
       getList(this.listQuery).then(response => {
         this.list = response.data.list
         console.log(this.list)
-        this.total = response.data.list.total
+        this.total = response.data.count
         this.listLoading = false
       })
     },
@@ -123,14 +125,13 @@ export default {
       this.getList()
     },
     handleEdit(index, row) {
-
-
-        console.log(index, row);
+      console.log(index, row);
       },
-      handleDelete(index, row) {
-        console.log(index, row);
+    handleDelete(index, row) {
+        console.log(row.id);
+        deleteCase(row.id);
       },
-      handleRun(index, row) {
+    handleRun(index, row) {
         console.log(index, row);
         excuteGroup(row.id)
 

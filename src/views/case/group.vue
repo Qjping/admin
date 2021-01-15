@@ -52,6 +52,11 @@
       </template>
     </el-table-column>
   </el-table>
+   <div class="pagination-container">
+      <el-pagination background @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="listQuery.page"
+        :page-sizes="[5,10,30,50]" :page-size="listQuery.limit" layout="total, sizes, prev, pager, next, jumper" :total="total">
+      </el-pagination>
+    </div>
 
   </div>
 
@@ -61,9 +66,23 @@
 import { getGroup, excuteGroup} from '@/api/case'
   export default {
     data() {
-      return {
-        list: null
-      }
+       return {
+         data:{
+           group_id:''
+    
+         },
+      page:'',
+      total: '',
+      list: null,
+      listLoading: true,
+      listQuery: {
+        page: 1,
+        limit: 5,
+        group_id:'',
+        key_word: '',
+        product_id: ''
+      },
+    }
     },  
     created()  {
       this.getGroup()
@@ -77,8 +96,9 @@ import { getGroup, excuteGroup} from '@/api/case'
         console.log(index, row);
       },
       handleRun(index, row) {
+        this.data.group_id=row.id
         console.log(index, row);
-        excuteGroup(row.id)
+        excuteGroup(this.data)
 
       },
       getGroup(){

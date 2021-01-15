@@ -18,8 +18,17 @@
   <el-form-item label="URL">
     <el-input v-model="form.url"></el-input>
   </el-form-item>
+  <el-form-item label="path">
+    <el-input v-model="form.path"></el-input>
+  </el-form-item>
+  <el-form-item label="assertions">
+    <el-input v-model="form.assertions"></el-input>
+  </el-form-item>
+  <el-form-item label="extract">
+    <el-input v-model="form.extract"></el-input>
+  </el-form-item>
      <el-button type="primary" :loading="loading" v-if="create" @click="handleCreateCase">创建</el-button>
-    <el-button type="primary" :loading="loading" v-if="edit" @click.native.prevent="handleUpdateGood">更新</el-button>
+    <el-button type="primary" :loading="loading" v-if="edit" @click.native.prevent="handleCreateCase">更新</el-button>
 </el-form>
 
      
@@ -60,7 +69,6 @@ import { validateEmptyString } from '@/utils/validate'
       getDetail(id).then(response=>{
         this.form = response.data
       })
-
     },
     handleCreateCase(){
        this.loading = true
