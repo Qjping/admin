@@ -74,7 +74,7 @@
 </template>
 
 <script>
-import { getList,deleteCase } from '@/api/case'
+import { getList,deleteCase,excuteCase } from '@/api/case'
 
 export default {
   filters: {
@@ -90,7 +90,7 @@ export default {
   data() {
     return {
       page:'',
-      total: '',
+      total: 0,
       list: null,
       listLoading: true,
       listQuery: {
@@ -112,6 +112,7 @@ export default {
       getList(this.listQuery).then(response => {
         this.list = response.data.list
         console.log(this.list)
+        
         this.total = response.data.count
         this.listLoading = false
       })
@@ -132,11 +133,10 @@ export default {
         deleteCase(row.id);
       },
     handleRun(index, row) {
-        console.log(index, row);
-        excuteGroup(row.id)
-
+        console.log(row.id);
+        excuteCase(row.id)
       },
-      CaseNew() {
+    CaseNew() {
       this.$router.push({
         path: 'create',
         query: {

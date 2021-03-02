@@ -2,7 +2,7 @@ import request from '@/utils/request'
 
 export function getList(query) {
   return request({
-    url: '/case/list',
+    url: '/case/search',
     method: 'get',
     params: query
   })
@@ -18,23 +18,31 @@ export function getDetail(id) {
 
 export function getGroup(params) {
   return request({
-    url: '/case-group/index',
+    url: '/case-group/search',
     method: 'get',
   })
 }
 
   export function excuteGroup(data) {
     return request({
-      url: '/case-group/excute',
+      url: '/case-group/execute',
       method: 'post',
       data
 
     })
   }
 
+  export function excuteCase(data) {
+    return request({
+      url: '/case/execute',
+      method: 'post',
+      data
+    })
+  }
+
   export function save(from){
     return request({
-      url:  '/save',
+      url:  '/case/add',
       method: 'post',
       data: from
     })
