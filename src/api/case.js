@@ -34,7 +34,7 @@ export function getGroup(params) {
 
   export function excuteCase(data) {
     return request({
-      url: '/case/execute',
+      url: '/case-group/execute',
       method: 'post',
       data
     })

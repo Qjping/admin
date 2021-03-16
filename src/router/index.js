@@ -95,6 +95,29 @@ export const constantRoutes = [
       }
     ]
   },
+  {
+    path: '/case-group',
+    component: Layout,
+    redirect: 'list',
+    name: 'case',
+    meta: { title: '用例组管理', icon: 'el-icon-s-help' },
+    children: [
+      {
+        path: 'list',
+        name: 'caselist',
+     
+        component: () => import('@/views/caseGroup/group'),
+        meta: { title: '用例组执行详情', icon: 'table' }
+      },
+      {
+        path: 'excute',
+        name: 'excute',
+        hidden: true,
+        component: () => import('@/views/caseGroup/excuteCaseGroup'),
+        meta: { title: '用例执行列表', icon: 'table' }
+      },
+    ]
+    },
 
   {
     path: '/form',
