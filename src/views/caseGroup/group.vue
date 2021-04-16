@@ -48,7 +48,9 @@
            <el-button
           size="mini"
           type="danger"
-          @click="handleRun(scope.$index, scope.row)">run</el-button>
+          @click="handleRun(scope.$index, scope.row)">
+          
+          run</el-button>
       </template>
     </el-table-column>
   </el-table>
@@ -98,11 +100,10 @@ import { getGroup, excuteGroup} from '@/api/case'
       },
       handleRun(index, row) {
         this.data.group_id=row.id
-
         this.$router.push({
         path: '/case-group/excute',
         query:{
-          group_id:this.data.group_id
+          id:this.data.group_id
         }
         
       })

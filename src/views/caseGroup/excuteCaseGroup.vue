@@ -11,6 +11,11 @@
       fit
       highlight-current-row
     >
+     <el-table-column label="DESCTION" width="110" align="center">
+        <template slot-scope="scope">
+          {{ scope.row.description }}
+        </template>
+      </el-table-column>
       <el-table-column align="center" label="ID" width="95">
         <template slot-scope="scope">
           {{ scope.row.id }}
@@ -26,9 +31,10 @@
           <span>{{ scope.row.method }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="DESCTION" width="110" align="center">
+    
+      <el-table-column label="responseResult" width="1000" align="center">
         <template slot-scope="scope">
-          {{ scope.row.description }}
+          {{ scope.row.responseResult }}
         </template>
       </el-table-column>
       <el-table-column class-name="status-col" label="Status" width="110" align="center">
@@ -103,9 +109,10 @@ export default {
     }
   },
   created() {
-    const group_id = this.$route.params && this.$route.params.group_id
+    this.listQuery.group_id = this.$route.query && this.$route.query.id
     // this.getList(group_id)
-    this.excuteCaseGroup()
+    console.log("group_id:"+this.$route.query.group_id)
+    this.excuteCaseGroup(this.listQuery)
     this.initWebSocket()
   },
   methods: {
@@ -136,9 +143,8 @@ export default {
         deleteCase(id);
       },
     excuteCaseGroup(index, row) {
-        const group_id = this.$route.params && this.$route.params.group_id
-        console.log(group_id);
-        excuteCase(group_id)
+        this.listQuery.group_id = this.$route.query && this.$route.query.id
+        excuteCase(this.listQuery)
       },
     destroyed() {
       this.websock.close();//离开路由之后断开websocket连接
